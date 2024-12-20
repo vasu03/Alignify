@@ -1,35 +1,22 @@
+// Importing required modules
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+
+// Importing custom global styles
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-
+// Set the metadata for the entire application
 export const metadata: Metadata = {
-  title: "Alignify",
-  description: "Where teams align and projects shine.",
+	title: "Alignify",
+	description: "Where teams align and projects shine.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
-}
+// Defining the Root Layout for the entire application
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+	return (
+		<html lang="en">
+			<body className={"antialiased min-h-screen"}>
+				{children}
+			</body>
+		</html>
+	);
+};
