@@ -16,13 +16,19 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 // Importing Icon components
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { UserPlus } from "lucide-react";
 
 // Importing the custom Form validation schemas and types
 import { SignUpSchema, SignUpSchemaType } from "../schemas/SignUp_Schema";
-import { UserPlus } from "lucide-react";
+
+// Importing the custom hook to handle the sign-up mutation
+import { useSignUp } from "../api/use-signup";
 
 // Defining the SignUpCard component
 const SignUpCard = () => {
+    // Custom mutation hook to handle the sign-up
+    const { mutate } = useSignUp();
+
     // Sign Up form validation using the custom validation schema
     const signUpForm = useForm<SignUpSchemaType>({
         resolver: zodResolver(SignUpSchema),
@@ -36,7 +42,8 @@ const SignUpCard = () => {
 
     // Function to handle the Sign Up form submission
     const handleFormSubmit = (values: SignUpSchemaType) => {
-        console.log({ values });
+        // Calling the custom mutation hook to handle the sign-up with the form values
+        mutate({ json: values });
     }
 
     // TSX for rendering the SignUpCard component

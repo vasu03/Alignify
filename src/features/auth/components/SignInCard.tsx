@@ -21,8 +21,14 @@ import { UserCheck } from "lucide-react";
 // Importing the custom Form validation schemas and types
 import { SignInSchema, SignInSchemaType } from "../schemas/SignIn_Schema";
 
+// Importing the custom hook to handle the sign-in mutation
+import { useSignIn } from "../api/use-signin";
+
 // Defining the SignInCard component
 const SignInCard = () => {
+	// Custom mutation hook to handle the sign-in
+	const { mutate } = useSignIn();
+
 	// Sign In form validation using the custom validation schema
 	const signInForm = useForm<SignInSchemaType>({
 		resolver: zodResolver(SignInSchema),
@@ -33,8 +39,9 @@ const SignInCard = () => {
 	});
 
 	// Function to handle the Sign In form submission
-	const onSubmit = (values: SignInSchemaType)	=> {
-		console.log({values});
+	const onSubmit = (values: SignInSchemaType) => {
+		// Calling the custom mutation hook to handle the sign-in with the form values
+		mutate({ json: values });
 	}
 
 	// TSX for rendering the SignInCard component
