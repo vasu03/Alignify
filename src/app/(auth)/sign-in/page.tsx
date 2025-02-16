@@ -1,4 +1,4 @@
-// To make the Sign-In page and all its children components to be Client-sided only
+// Mark this Page and all its children as Client-Side Components
 "use client";
 
 // Importing required modules

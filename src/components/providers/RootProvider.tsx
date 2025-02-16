@@ -1,17 +1,25 @@
-// To make RootProcider and its Children to be Client sided components 
+// Mark this component and its children as Client-Side Components
 "use client";
 
-// Importing required modules
+// Import required modules
 import React, { ReactNode, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-
-// Creating a Root Provider for the application
+// Define the RootProvider component to wrap the application with necessary providers
 const RootProvider = ({ children }: { children: ReactNode }) => {
-    // Creating a Query Client
-    const [queryClient] = useState(() => new QueryClient({ defaultOptions: { queries: { staleTime: 60 * 1000, } } }));
+    // Initialize a QueryClient instance with default options
+    const [queryClient] = useState(
+        () =>
+            new QueryClient({ 
+                defaultOptions: {
+                    queries: {
+                        staleTime: 60 * 1000,
+                    },
+                },
+            }),
+    );
 
-    // Wrap the children with Providers
+    // Wrap the children with the QueryClientProvider to enable React Query functionality
     return (
         <QueryClientProvider client={queryClient}>
             {children}
@@ -19,5 +27,5 @@ const RootProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
-// Exporting the RootProvider
+// Export the RootProvider component as the default export
 export default RootProvider;

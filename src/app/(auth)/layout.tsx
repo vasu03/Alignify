@@ -2,10 +2,7 @@
 import React, { ReactNode } from "react";
 
 // Importing the icons
-import { Goal, UserPlus } from "lucide-react";
-
-// Importing the pre-defined UI components
-import { Button } from "@/components/ui/button";
+import { Goal } from "lucide-react";
 
 // Defining the props interface for Auth layout component
 interface AuthLayoutProps {
@@ -18,7 +15,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     return (
         // Render the Layout for auth pages
         <main className="min-h-screen w-full">
-            <div className="max-w-5xl mx-auto p-4">
+            <div className="max-w-5xl mx-auto p-4 h-fit">
                 {/* A Navbar for this Auth Layout */}
                 <nav className="flex items-center justify-between" >
                     <span className="flex items-center gap-1 p-1 cursor-pointer">
@@ -28,7 +25,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
                 </nav>
 
                 {/* Rendering the Children components for SignIn and SignUp */}
-                <div className="flex flex-col items-center justify-center gap-4 pt-6">
+                <div className="h-[768px] flex flex-col items-center justify-center gap-4 pt-6">
                     {children}
                 </div>
             </div>
