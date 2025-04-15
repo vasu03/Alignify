@@ -1,5 +1,8 @@
+// Mark this component and its children as Client-Side Components
+"use client";
+
 // Importing required modules
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 
 // Importing pre-build React Hooks
@@ -16,7 +19,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 // Importing Icon components
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { UserPlus } from "lucide-react";
+import { LoaderIcon, UserPlus } from "lucide-react";
 
 // Importing the custom Form validation schemas and types
 import { SignUpSchema, SignUpSchemaType } from "../schemas/SignUp_Schema";
@@ -27,7 +30,7 @@ import { useSignUp } from "../api/use-signup";
 // Defining the SignUpCard component
 const SignUpCard = () => {
     // Custom mutation hook to handle the sign-up
-    const { mutate } = useSignUp();
+    const { mutate, isPending } = useSignUp();
 
     // Sign Up form validation using the custom validation schema
     const signUpForm = useForm<SignUpSchemaType>({
@@ -64,7 +67,7 @@ const SignUpCard = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input {...field} type="text" placeholder="Name" />
+                                        <Input {...field} type="text" placeholder="Name" disabled={isPending} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -75,7 +78,7 @@ const SignUpCard = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input {...field} placeholder="Email" type="email" />
+                                        <Input {...field} placeholder="Email" type="email" disabled={isPending} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -87,7 +90,7 @@ const SignUpCard = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input {...field} type="password" placeholder="Password" />
+                                        <Input {...field} type="password" placeholder="Password" disabled={isPending} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -98,14 +101,20 @@ const SignUpCard = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Input {...field} type="password" placeholder="Confirm Password" />
+                                        <Input {...field} type="password" placeholder="Confirm Password" disabled={isPending} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )} />
-                        <Button type="submit" variant={"primary"} size={"lg"} className="w-full">
-                            <UserPlus />
-                            Sign Up
+                        <Button type="submit" variant={"primary"} size={"lg"} className="w-full" disabled={isPending}>
+                            {!isPending ? (
+                                <>
+                                    <UserPlus />
+                                    Sign Up
+                                </>
+                            ) : (
+                                <LoaderIcon className="animate-spin " />
+                            )}
                         </Button>
                     </form>
                 </Form>
@@ -119,11 +128,11 @@ const SignUpCard = () => {
 
                 {/* Container to render the Alternate Sign Up options button */}
                 <CardContent className="flex flex-col space-y-4 md:w-[85%] mx-auto p-0">
-                    <Button variant={"secondary"} size={"lg"} disabled={false} className="w-full text-xs xl:text-sm">
+                    <Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm">
                         <FcGoogle className="sm:!h-6 sm:!w-6" />
                         Sign Up with Google
                     </Button>
-                    <Button variant={"secondary"} size={"lg"} disabled={false} className="w-full text-xs xl:text-sm ">
+                    <Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm ">
                         <FaGithub className="sm:!h-5 sm:!w-5" />
                         Sign Up with GitHub
                     </Button>

@@ -1,5 +1,8 @@
+// Mark this component and its children as Client-Side Components
+"use client";
+
 // Importing required modules
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 
 // Importing pre-build React Hooks
@@ -16,7 +19,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 // Importing Icon components
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import { UserCheck } from "lucide-react";
+import { LoaderIcon, UserCheck } from "lucide-react";
 
 // Importing the custom Form validation schemas and types
 import { SignInSchema, SignInSchemaType } from "../schemas/SignIn_Schema";
@@ -27,7 +30,7 @@ import { useSignIn } from "../api/use-signin";
 // Defining the SignInCard component
 const SignInCard = () => {
 	// Custom mutation hook to handle the sign-in
-	const { mutate } = useSignIn();
+	const { mutate, isPending } = useSignIn();
 
 	// Sign In form validation using the custom validation schema
 	const signInForm = useForm<SignInSchemaType>({
@@ -62,7 +65,7 @@ const SignInCard = () => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input {...field} type="email" placeholder="Enter Email" />
+										<Input {...field} type="email" placeholder="Enter Email" disabled={isPending} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -74,14 +77,20 @@ const SignInCard = () => {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input {...field} type="password" placeholder="Enter Password" />
+										<Input {...field} type="password" placeholder="Enter Password" disabled={isPending} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
 							)} />
-						<Button type="submit" variant={"primary"} size={"lg"} className="w-full">
-							<UserCheck />
-							Sign In
+						<Button type="submit" variant={"primary"} size={"lg"} className="w-full" disabled={isPending}>
+							{!isPending ? (
+								<>
+									<UserCheck />
+									Sign In
+								</>
+							) : (
+								<LoaderIcon className="animate-spin " />
+							)}
 						</Button>
 					</form>
 				</Form>
@@ -95,11 +104,11 @@ const SignInCard = () => {
 
 				{/* Container to render the Alternate Sign In options button */}
 				<CardContent className="flex flex-col space-y-4 md:w-[85%] mx-auto p-0">
-					<Button variant={"secondary"} size={"lg"} disabled={false} className="w-full text-xs xl:text-sm">
+					<Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm">
 						<FcGoogle className="sm:!h-6 sm:!w-6" />
 						Sign In with Google
 					</Button>
-					<Button variant={"secondary"} size={"lg"} disabled={false} className="w-full text-xs xl:text-sm ">
+					<Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm ">
 						<FaGithub className="sm:!h-5 sm:!w-5" />
 						Sign In with GitHub
 					</Button>
