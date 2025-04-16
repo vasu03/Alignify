@@ -1,11 +1,16 @@
 // Importing required modules
 import React from "react";
+import { cn } from "@/lib/utils";
+
+interface SeparatorProp {
+    className?: String
+}
 
 // Creating a Separator component
-const Separator = () => {
+const Separator = ({ className }: SeparatorProp) => {
     // TSX to render the component
     return (
-        <div className="border border-b border-neutral-200 my-3"></div>
+        <div className={cn("border border-b border-neutral-200 my-3", className)}></div>
     );
 };
 

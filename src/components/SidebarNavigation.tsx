@@ -48,7 +48,7 @@ const SidebarNavigation = () => {
                     <Link href={link.href} key={idx} className="">
                         <div className={cn(
                             "flex items-center gap-2 p-2 text-base font-medium text-neutral-500 hover:text-blue-500 transition-all duration-300",
-                            isActive && "bg-white shadow-sm hover:opacity-100 text-blue-500"
+                            isActive && "bg-white shadow-xs hover:opacity-100 text-blue-500"
                         )}>
                             <Icon className="size-5" />
                             {link.label}

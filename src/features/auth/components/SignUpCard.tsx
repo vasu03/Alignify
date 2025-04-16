@@ -60,7 +60,7 @@ const SignUpCard = () => {
             <CardContent className="p-0">
                 {/* Container to render the Sign Up form */}
                 <Form {...signUpForm} >
-                    <form onSubmit={signUpForm.handleSubmit(handleFormSubmit)} className="flex flex-col space-y-3 md:w-[85%] mx-auto">
+                    <form onSubmit={signUpForm.handleSubmit(handleFormSubmit)} className="flex flex-col gap-y-4 md:w-[85%] mx-auto">
                         <FormField
                             name="name"
                             control={signUpForm.control}
@@ -127,7 +127,7 @@ const SignUpCard = () => {
                 </div>
 
                 {/* Container to render the Alternate Sign Up options button */}
-                <CardContent className="flex flex-col space-y-4 md:w-[85%] mx-auto p-0">
+                <CardContent className="flex flex-col gap-y-4 md:w-[85%] mx-auto p-0">
                     <Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm">
                         <FcGoogle className="sm:!h-6 sm:!w-6" />
                         Sign Up with Google

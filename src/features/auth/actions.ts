@@ -19,7 +19,7 @@ export const getCurrent = async () => {
 
         // grab the cookie
         // In Next 15 we use await cookies()
-        const session = cookies().get(AUTH_COOKIE);
+        const session = (await cookies()).get(AUTH_COOKIE);
 
         if (!session) return null;
 

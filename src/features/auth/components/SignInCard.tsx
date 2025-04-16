@@ -58,7 +58,7 @@ const SignInCard = () => {
 			<CardContent className="p-0">
 				{/* Container to render the Sign In form */}
 				<Form {...signInForm} >
-					<form onSubmit={signInForm.handleSubmit(onSubmit)} className="flex flex-col space-y-4 md:w-[85%] mx-auto">
+					<form onSubmit={signInForm.handleSubmit(onSubmit)} className="flex flex-col gap-y-4 md:w-[85%] mx-auto">
 						<FormField
 							name="email"
 							control={signInForm.control}
@@ -103,7 +103,7 @@ const SignInCard = () => {
 				</div>
 
 				{/* Container to render the Alternate Sign In options button */}
-				<CardContent className="flex flex-col space-y-4 md:w-[85%] mx-auto p-0">
+				<CardContent className="flex flex-col gap-y-4 md:w-[85%] mx-auto">
 					<Button variant={"secondary"} size={"lg"} disabled={isPending} className="w-full text-xs xl:text-sm">
 						<FcGoogle className="sm:!h-6 sm:!w-6" />
 						Sign In with Google
