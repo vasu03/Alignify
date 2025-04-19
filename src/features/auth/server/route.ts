@@ -16,6 +16,7 @@ import { AUTH_COOKIE } from "../utils/authConstants";
 
 // Import custom middleware for session handling
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
+import { transformCurrentUserResponse } from "@/utils/transformers/TransformCurrentUserResponse";
 
 // Create a new Hono instance to define authentication routes
 const authRoute = new Hono()
@@ -26,7 +27,7 @@ const authRoute = new Hono()
             // Obtain the currently authenticated user details
             const user = c.get("user");
             // Send the user details as response
-            return c.json({ data: user });
+            return c.json({ data: transformCurrentUserResponse(user)});
         }
     )
     .post(

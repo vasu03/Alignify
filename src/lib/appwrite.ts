@@ -2,7 +2,7 @@
 import "server-only";
 
 // Import necessary Appwrite SDK modules
-import { Client, Account, Storage, Users, Databases } from "node-appwrite";
+import { Client, Account } from "node-appwrite";
 
 // Function to create and return an admin client instance for Appwrite API SDK
 export const createAdminClient = async () => {
