@@ -53,17 +53,17 @@ export const sessionMiddleware = createMiddleware<AdditionalContext>(
 
         // Initialize Appwrite services for account, database, and storage operations
         const account = new Account(client);
-        const databases = new Databases(client);
         const storage = new Storage(client);
+        const databases = new Databases(client);
 
         // Fetch the current user's account details using the authenticated session
         const user = await account.get();
 
         // Attach the initialized services and user data to the context for downstream use
-        c.set("account", account);
-        c.set("databases", databases);
-        c.set("storage", storage);
         c.set("user", user);
+        c.set("account", account);
+        c.set("storage", storage);
+        c.set("databases", databases);
 
         // Proceed to the next middleware or route handler
         await next();

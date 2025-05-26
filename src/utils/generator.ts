@@ -1,0 +1,10 @@
+// a utility function to generate the Workspace invite code
+export const generateInviteCode = (length: number) => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$*";
+    let result = "";
+
+    for (let i=0; i<length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+};

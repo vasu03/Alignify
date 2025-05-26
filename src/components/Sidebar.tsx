@@ -6,6 +6,7 @@ import Link from "next/link";
 import Logo from "./Logo";
 import Separator from "./Separator";
 import SidebarNavigation from "./SidebarNavigation";
+import SwitchWorkspace from "./SwitchWorkspace";
 
 // Creating a Sidebar for Dashboard page
 const Sidebar = () => {
@@ -15,6 +16,8 @@ const Sidebar = () => {
             <Link href={"/"}>
                 <Logo />
             </Link>
+            <Separator />
+            <SwitchWorkspace />
             <Separator />
             <SidebarNavigation />
         </aside>

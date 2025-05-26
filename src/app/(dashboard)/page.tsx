@@ -2,8 +2,8 @@
 import React from "react";
 import { redirect } from "next/navigation";
 
-// Importing custom UI components
-import UserButton from "@/features/auth/components/UserButton";
+// Importing custom components
+import CreateWorkspaceForm from "@/features/workspaces/components/CreateWorkspaceForm";
 
 // Importing custom actions
 import { getCurrent } from "@/features/auth/actions";
@@ -18,6 +18,7 @@ const page = async () => {
 	return (
 		<div className="">
 			Dashboard
+			<CreateWorkspaceForm />
 		</div>
 	);
 };

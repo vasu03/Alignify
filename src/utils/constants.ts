@@ -1,0 +1,5 @@
+export const DATABASE_ID = process.env.NEXT_APPWRITE_DATABASE_ID!;
+export const BUCKET_ID = process.env.NEXT_APPWRITE_BUCKET_ID!;
+export const WORKSPACES_COLLECTION_ID = process.env.NEXT_APPWRITE_WORKSPACES_ID!;
+export const MEMBERS_COLLECTION_ID = process.env.NEXT_APPWRITE_MEMBERS_ID!;
+export const WORKSPACE_INVITE_CODE_LENGTH = 12;
