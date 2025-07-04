@@ -6,7 +6,7 @@ import { getCookie } from "hono/cookie";
 import { createMiddleware } from "hono/factory";
 
 // Import custom constants
-import { AUTH_COOKIE } from "../features/auth/utils/authConstants";
+import { AUTH_COOKIE } from "@/utils/constants";
 
 // Import required Appwrite SDK modules
 import {

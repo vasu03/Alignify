@@ -1,3 +1,4 @@
+export const AUTH_COOKIE = "alignify-session";
 export const DATABASE_ID = process.env.NEXT_APPWRITE_DATABASE_ID!;
 export const BUCKET_ID = process.env.NEXT_APPWRITE_BUCKET_ID!;
 export const WORKSPACES_COLLECTION_ID = process.env.NEXT_APPWRITE_WORKSPACES_ID!;

@@ -2,14 +2,12 @@
 import { cookies } from "next/headers";
 
 // Import custom constants
-import { AUTH_COOKIE } from "./utils/authConstants";
+import { AUTH_COOKIE } from "@/utils/constants";
 
 // Import required Appwrite SDK modules
 import { Account, Client } from "node-appwrite";
 
-
-
-// Create and export an action to retrieve the current user and protect our routes 
+// An action to retrieve the current user and protect our routes 
 export const getCurrent = async () => {
     try {
         // Initialize a client with user-level privileges (not admin-level)
@@ -33,4 +31,4 @@ export const getCurrent = async () => {
     } catch {
         return null;
     }
-}
+};

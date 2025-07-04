@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import SignInCard from "@/features/auth/components/SignInCard";
 
 // Importing custom actions
-import { getCurrent } from "@/features/auth/actions";
+import { getCurrent } from "@/features/auth/server";
 
 // Defining the page component for Sign-In page
 const page = async () => {

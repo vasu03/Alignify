@@ -12,7 +12,7 @@ import { SignInSchema } from "../schemas/SignIn_Schema";
 import { SignUpSchema } from "../schemas/SignUp_Schema";
 
 // Import custom constants
-import { AUTH_COOKIE } from "../utils/authConstants";
+import { AUTH_COOKIE } from "@/utils/constants";
 
 // Import custom middleware for session handling
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
