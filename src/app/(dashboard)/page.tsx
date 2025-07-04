@@ -1,26 +1,19 @@
-// Importing required modules
-import React from "react";
+// Import required modules
 import { redirect } from "next/navigation";
 
-// Importing custom components
-import CreateWorkspaceForm from "@/features/workspaces/components/CreateWorkspaceForm";
+// Import custom components
+// import CreateWorkspaceForm from "@/features/workspaces/components/CreateWorkspaceForm";
 
-// Importing custom actions
-import { getCurrent } from "@/features/auth/actions";
+// Import custom actions
+import { getWorkspaces } from "@/features/workspaces/server";
 
 // Defining the page component for App page
 const page = async () => {
-	// Get the currently authenticated user
-	const currentUser = await getCurrent();
-	if (!currentUser) redirect("/sign-in");
 
-	// TSX for rendering the page component
-	return (
-		<div className="">
-			Dashboard
-			<CreateWorkspaceForm />
-		</div>
-	);
+	// Get the workspaces and render the first workspace in document list 
+	const workspaces = await getWorkspaces();
+	if (workspaces?.total === 0) redirect("/workspaces/create");
+	else redirect(`/workspaces/${workspaces?.documents[0].$id}`);
 };
 
 // Exporting the page component for App page

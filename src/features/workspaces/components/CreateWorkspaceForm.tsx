@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import { z } from "zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // Import custom validation schemas
@@ -18,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 // Import Lucide icons
-import { ImageIcon, LoaderIcon } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 
 // Importing custom components
 import Separator from "@/components/Separator";
@@ -33,6 +34,7 @@ interface CreateWorkspaceFormProps {
 
 // Creating a form component to Create New Workspace
 const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
+    const router = useRouter();
 
     // setting up a reference for the image input
     const inputRef = useRef<HTMLInputElement>(null);
@@ -55,9 +57,10 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
             imageUrl: values.imageUrl instanceof File ? values.imageUrl : "",
         };
         mutate({ form: finalFormValues }, {
-            onSuccess: () => {
+            onSuccess: ({ data }) => {
                 form.reset();
-                // TODO : Redirect to newly created workspace
+                // navigate to newly created workspace
+                router.push(`/workspaces/${data.id}`);
             }
         });
     }
@@ -73,7 +76,7 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
 
     // TSX to render the component
     return (
-        <Card className="w-full max-w-screen-xl mx-auto h-full shadow-none py-1 px-7">
+        <Card className="w-full max-w-screen-xl mx-auto h-full shadow-none py-1 px-7 border-none">
             <CardHeader className="flex" >
                 <CardTitle className="text-xl font-bold text-neutral-700">Create a New Workspace</CardTitle>
             </CardHeader>
@@ -114,7 +117,7 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                                                             field.value
                                                         }
                                                         alt="img"
-                                                        fill 
+                                                        fill
                                                         className="object-cover"
                                                     />
                                                 </div>

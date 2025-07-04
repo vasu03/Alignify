@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 // Importing required Service providers for the application
 import RootProvider from "@/components/providers/RootProvider";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 // Importing pre-defined UI components
 import { Toaster } from "@/components/ui/sonner";
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 			<body className={"antialiased min-h-screen"}>
 				<Toaster richColors position="top-right" />
 				<RootProvider>
-					{children}
+					<NuqsAdapter>
+						{children}
+					</NuqsAdapter>
 				</RootProvider>
 			</body>
 		</html>
