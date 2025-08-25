@@ -2,7 +2,7 @@
 import React from "react";
 
 // A page to show individual workspace via a constant route /workspaces/<workspaceId>
-const WorkspaceIdPage = () => {
+const WorkspaceIdPage = async () => {
     // TSX to render the page
     return (
         <div>WorkspaceIdPage</div>

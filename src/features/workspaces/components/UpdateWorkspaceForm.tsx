@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // Import custom validation schemas
-import { CreateWorkspaceSchema } from "../schemas/CreateWorkspace_Schema";
+import { UpdateWorkspaceSchema } from "../schemas/UpdateWorkspace_Schema";
 
 // Import UI components
 import { Input } from "@/components/ui/input";
@@ -20,44 +20,52 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 // Import Lucide icons
-import { ImageIcon } from "lucide-react";
+import { ArrowLeftIcon, ImageIcon } from "lucide-react";
 
 // Importing custom components
 import Separator from "@/components/Separator";
 
 // Import custom hook to handle create workspace action
-import { useCreateWorkspace } from "../api/use-create-workspace";
+import { useUpdateWorkspace } from "../api/use-update-workspace";
+
+// Import custom types
+import { WorkspaceType } from "../types";
 
 // Defining the Prop types
-interface CreateWorkspaceFormProps {
+interface UpdateWorkspaceFormProps {
     onCancel?: () => void;
+    initialValues: WorkspaceType;
 };
 
-// Creating a form component to Create New Workspace
-const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
+// Creating a form component to Update Existing Workspace
+const UpdateWorkspaceForm = ({ onCancel, initialValues }: UpdateWorkspaceFormProps) => {
     const router = useRouter();
 
     // setting up a reference for the image input
     const inputRef = useRef<HTMLInputElement>(null);
 
     // Custom mutation hook to handle Create Workspace
-    const { mutate, isPending } = useCreateWorkspace();
+    const { mutate, isPending } = useUpdateWorkspace();
 
     // Create Workspace form validation using custom validation schema
-    const form = useForm<z.infer<typeof CreateWorkspaceSchema>>({
-        resolver: zodResolver(CreateWorkspaceSchema),
+    const form = useForm<z.infer<typeof UpdateWorkspaceSchema>>({
+        resolver: zodResolver(UpdateWorkspaceSchema),
         defaultValues: {
-            name: "",
+            ...initialValues,
+            imageUrl: initialValues.imageUrl ?? ""
         },
     });
 
     // function to handle the submission of form
-    const onFormSubmit = (values: z.infer<typeof CreateWorkspaceSchema>) => {
+    const onFormSubmit = (values: z.infer<typeof UpdateWorkspaceSchema>) => {
         const finalFormValues = {
             ...values,
             imageUrl: values.imageUrl instanceof File ? values.imageUrl : "",
         };
-        mutate({ form: finalFormValues }, {
+        mutate({
+            form: finalFormValues,
+            param: { workspaceId: initialValues.$id }
+        }, {
             onSuccess: ({ data }) => {
                 form.reset();
                 // navigate to newly created workspace
@@ -77,9 +85,12 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
 
     // TSX to render the component
     return (
-        <Card className="w-xl max-w-screen-2xl mx-auto h-full shadow-none py-2 px-7 border-none">
-            <CardHeader className="flex" >
-                <CardTitle className="text-xl font-bold text-neutral-700">Create a New Workspace</CardTitle>
+        <Card className="w-lg max-w-screen-2xl mx-auto h-full shadow-none py-2 px-7 border-none">
+            <CardHeader className="flex flex-row items-center gap-4 text-neutral-700" >
+                <Button onClick={onCancel ? onCancel : () => router.push(`/workspaces/${initialValues.$id}`)} variant={"outline"} className=" size-8">
+                    <ArrowLeftIcon />
+                </Button>
+                <CardTitle className="text-xl font-bold text-neutral-700">Update a existing Workspace</CardTitle>
             </CardHeader>
             <Separator className={"my-0"} />
             <CardContent className="py-4 px-8" >
@@ -145,13 +156,10 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                                                     <Button
                                                         type="button"
                                                         disabled={isPending}
-                                                        variant={"destructive"}
+                                                        variant={"secondary"}
                                                         size={"sm"}
                                                         className="w-fit mt-2 px-4 cursor-pointer bg-rose-100 text-red-400 hover:bg-rose-200 hover:text-red-500"
-                                                        onClick={() => {
-                                                            field.onChange(null);
-                                                            if (inputRef.current) inputRef.current.value = ""
-                                                        }}
+                                                        onClick={() => inputRef.current?.click()}
                                                     >Remove Image</Button>
                                                 ) : (
                                                     <Button
@@ -171,7 +179,7 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                         </div>
                         <div className="flex items-center justify-center gap-3 p-4 my-3">
                             <Button onClick={onCancel} type="button" variant={"secondary"} size={"lg"} className={cn("cursor-pointer", (!onCancel && "hidden"))} disabled={isPending}>Cancel</Button>
-                            <Button type="submit" variant={"primary"} size={"lg"} className="cursor-pointer" disabled={isPending}>Create Workspace</Button>
+                            <Button type="submit" variant={"primary"} size={"lg"} className="cursor-pointer" disabled={isPending}>Update Workspace</Button>
                         </div>
                     </form>
                 </Form>
@@ -181,4 +189,4 @@ const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
 };
 
 // Export the component
-export default CreateWorkspaceForm;
+export default UpdateWorkspaceForm;

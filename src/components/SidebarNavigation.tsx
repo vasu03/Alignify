@@ -1,12 +1,19 @@
+"use client";
+
 // Importing required modules
 import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 // Importing react icons
 import { GoCheckCircle, GoCheckCircleFill, GoHome, GoHomeFill } from "react-icons/go";
+
 // Importing Lucide icons
 import { SettingsIcon, User2Icon } from "lucide-react";
+
+// Import custom hooks
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 // An constant object containing the navigation links
 const navLinks = [
@@ -38,17 +45,23 @@ const navLinks = [
 
 // Creating a Navigation menu for Dashboard Sidebar
 const SidebarNavigation = () => {
+    // Initializing the hooks
+    const workspaceId = useWorkspaceId();
+    const pathname = usePathname();
+
     // TSX to render the component
     return (
         <div className="flex flex-col">
             {navLinks.map((link, idx) => {
-                const isActive = false;
+                const fullHref = `/workspaces/${workspaceId}${link.href}`;
+
+                const isActive = pathname === fullHref;
                 const Icon = isActive ? link.activeIcon : link.icon;
                 return (
-                    <Link href={link.href} key={idx} className="">
+                    <Link href={fullHref} key={idx} className="">
                         <div className={cn(
                             "flex items-center gap-2 p-2 text-base font-medium text-neutral-500 hover:text-blue-500 transition-all duration-300",
-                            isActive && "bg-white shadow-xs hover:opacity-100 text-blue-500"
+                            isActive && "bg-white rounded-md shadow-xs hover:opacity-100 text-blue-500"
                         )}>
                             <Icon className="size-5" />
                             {link.label}

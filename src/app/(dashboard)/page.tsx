@@ -1,9 +1,6 @@
 // Import required modules
 import { redirect } from "next/navigation";
 
-// Import custom components
-// import CreateWorkspaceForm from "@/features/workspaces/components/CreateWorkspaceForm";
-
 // Import custom actions
 import { getWorkspaces } from "@/features/workspaces/server";
 
@@ -12,6 +9,7 @@ const page = async () => {
 
 	// Get the workspaces and render the first workspace in document list 
 	const workspaces = await getWorkspaces();
+	// if there are no workspaces then redirect to onboarding page for creating new workspace
 	if (workspaces?.total === 0) redirect("/workspaces/create");
 	else redirect(`/workspaces/${workspaces?.documents[0].$id}`);
 };

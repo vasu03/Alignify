@@ -45,7 +45,14 @@ const SwitchWorkspace = () => {
             </div>
             <Select onValueChange={handleSelectWorkspace} value={workspaceId || ""}>
                 <SelectTrigger className="w-full bg-neutral-200 font-medium px-2 py-4">
-                    <SelectValue placeholder="No Workspace selected" />
+                    {/* <SelectValue placeholder="No Workspace selected" /> */}
+                    {isPending ? (
+                        <span className="flex items-center justify-center w-full">
+                            <LoaderIcon className="animate-spin" />
+                        </span>
+                    ) : (
+                        <SelectValue placeholder="No Workspace selected" />
+                    )}
                 </SelectTrigger>
                 <SelectContent className="py-2">
                     {isPending ? (

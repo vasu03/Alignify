@@ -6,11 +6,19 @@ export type SanitizedCreateWorkspaceType = {
     createdAt: string
 };
 
+// A type definition for the Sanitized Update Workspace Response
+export type SanitizedUpdateWorkspaceType = {
+    id: string,
+    name: string,
+    userId: string,
+    createdAt: string
+};
+
 // A type definition for the Sanitized Get Workspaces Response
 export type SanitizedGetWorkspaceType = {
     id: string,
     name: string,
-    imageUrl: string,
+    imageUrl: string | undefined,
     userId: string,
     createdAt: string
 };

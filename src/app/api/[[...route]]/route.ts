@@ -19,6 +19,7 @@ const routes = app
 // Export explicit handlers for GET and POST methods to integrate with Vercel serverless functions
 export const GET = handle(app);
 export const POST = handle(app);
+export const PATCH = handle(app);
 
 // Export the type of the entire application API for end-to-end type safety
 export type AppType = typeof routes;
